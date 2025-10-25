@@ -1,8 +1,10 @@
+export type WeatherData = typeof data;
+
 export const data = {
 	cod: "200",
 	message: 0,
 	cnt: 40,
-	list: [
+	listX: [
 		{
 			dt: 1761328800,
 			main: {
