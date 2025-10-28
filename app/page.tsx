@@ -1,6 +1,7 @@
 import { data } from "@/app/data/dummy-5days";
 import HumidityBarChart from "@/components/humidityBarChart";
 import TempLineChart from "@/components/tempLineChart";
+import Image from "next/image";
 
 export default function Home() {
 	const DATA = data.listX.slice(0, 13);
@@ -24,6 +25,12 @@ export default function Home() {
 										className="flex flex-col grow not-last:border-r items-center font-semibold text-xl gap-4 p-4"
 									>
 										<span className="">{Math.round(data.main.temp)}&deg;C</span>
+										<Image
+											src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+											width={100}
+											height={100}
+											alt="icon"
+										/>
 										<span className="text-sm text-muted-foreground">
 											{new Date(data.dt * 1000).toLocaleTimeString(["en-AU"], {
 												hour: "2-digit",
