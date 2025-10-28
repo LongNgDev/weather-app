@@ -4,7 +4,7 @@ export const data = {
 	cod: "200",
 	message: 0,
 	cnt: 40,
-	listX: [
+	list: [
 		{
 			dt: 1761328800,
 			main: {

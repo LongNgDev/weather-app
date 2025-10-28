@@ -1,10 +1,43 @@
-import { data } from "@/app/data/dummy-5days";
+"use client";
+
+// import { data } from "@/app/data/dummy-5days";
 import HumidityBarChart from "@/components/humidityBarChart";
 import TempLineChart from "@/components/tempLineChart";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+import { WeatherData } from "@/app/data/dummy-5days";
 
 export default function Home() {
-	const DATA = data.listX.slice(0, 13);
+	const [weather, setWeather] = useState<WeatherData>();
+	const [loading, setLoading] = useState(false);
+	const lat = "-37.677284499499244";
+	const lon = "145.0641317413585";
+
+	useEffect(() => {
+		async function fetchWeather() {
+			setLoading(true);
+
+			try {
+				const res = await fetch(`/api/weather?lat=${lat}&lon=${lon}`);
+				if (!res.ok) throw new Error("API Error!");
+
+				const data = await res.json();
+				setWeather(data);
+			} catch (err) {
+				console.error(err);
+			} finally {
+				setLoading(false);
+			}
+		}
+
+		fetchWeather();
+
+		const interval = setInterval(fetchWeather, 300000);
+		return () => clearInterval(interval);
+	}, [lat, lon]);
+
+	const DATA = weather?.list?.slice(0, 13) ?? [];
 
 	return (
 		<div className="min-h-dvh w-dvw max-w-[1440px] m-auto">
@@ -44,10 +77,10 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="w-full">
-						<TempLineChart data={data} />
+						<TempLineChart data={DATA} />
 					</div>
-				</section>
-				<section className="w-full border-2 p-6 border-accent-foreground/60 rounded-2xl">
+					{/* </section>
+				<section className="w-full border-2 p-6 border-accent-foreground/60 rounded-2xl"> */}
 					<div className="flex w-full gap-6">
 						<div className="flex flex-col justify-start border-2 rounded-xl gap-4 items-center p-4 h-fit">
 							<h3 className="font-semibold">5 Days Forecast</h3>
@@ -69,15 +102,17 @@ export default function Home() {
 							</div>
 						</div>
 						<div className="grow flex flex-col justify-center items-center gap-6">
-							<HumidityBarChart />
+							<HumidityBarChart data={DATA} />
 							<div className="grid grid-cols-3 text-center w-full gap-x-4">
 								<div className=" border-2 rounded-xl flex flex-col">
-									<h3 className="font-semibold border-b p-4">Humidity</h3>
+									<h3 className="font-semibold border-b p-4">Humidity (%)</h3>
 									<div className="p-4 text-4xl tracking-wide">30</div>
 								</div>
 								<div className=" border-2 rounded-xl flex flex-col">
-									<h3 className="font-semibold border-b p-4">Wind Speed</h3>
-									<div className="p-4 text-4xl tracking-wide">30</div>
+									<h3 className="font-semibold border-b p-4">
+										Wind Speed (m/s)
+									</h3>
+									<div className="p-4 text-4xl tracking-wide">30 </div>
 								</div>
 								<div className=" border-2 rounded-xl flex flex-col">
 									<h3 className="font-semibold border-b p-4">Compass</h3>

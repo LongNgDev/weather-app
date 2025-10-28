@@ -2,14 +2,19 @@
 
 import { WeatherData } from "../app/data/dummy-5days";
 
-import { TrendingUp } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import {
+	CartesianGrid,
+	LabelList,
+	Line,
+	LineChart,
+	XAxis,
+	YAxis,
+} from "recharts";
 
 import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
@@ -20,34 +25,34 @@ import {
 	ChartTooltipContent,
 } from "@/components/ui/chart";
 
-function TempLineChart({ data }: { data: WeatherData }) {
+function TempLineChart({ data }: { data: WeatherData["list"] }) {
 	const chartConfig = {
 		temp: {
 			color: "var(--chart-2)",
 		},
 	} satisfies ChartConfig;
 
-	const chartData = data.listX.slice(0, 13).map((item) => {
+	const chartData = data.map((item) => {
 		return {
 			hr: new Date(item.dt * 1000).toLocaleTimeString("en-AU", {
 				hour: "2-digit",
 				timeZone: "UTC",
 				hour12: false,
 			}),
-			temp: item.main.temp,
+			temp: Math.round(item.main.temp),
 		};
 	});
 
 	return (
 		<Card className="">
 			<CardHeader>
-				<CardTitle>Line Chart</CardTitle>
-				<CardDescription>January - June 2024</CardDescription>
+				<CardTitle>Temperature Chart</CardTitle>
+				<CardDescription>30 December 2025</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<ChartContainer
 					config={chartConfig}
-					className="aspect-auto h-[250px] w-full"
+					className="aspect-auto h-[250px] w-full py-4"
 				>
 					<LineChart
 						accessibilityLayer
@@ -61,7 +66,7 @@ function TempLineChart({ data }: { data: WeatherData }) {
 						<XAxis
 							dataKey="hr"
 							tickLine={false}
-							axisLine={false}
+							// axisLine={false}
 							tickMargin={8}
 							tickFormatter={(value) => value.slice(0, 3)}
 						/>
@@ -69,6 +74,7 @@ function TempLineChart({ data }: { data: WeatherData }) {
 							cursor={false}
 							content={<ChartTooltipContent hideLabel />}
 						/>
+						<YAxis dataKey={"temp"} tickLine={false} tickMargin={8} />
 						<Line
 							dataKey="temp"
 							type="natural"

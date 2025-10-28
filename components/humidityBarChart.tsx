@@ -8,10 +8,10 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from "./ui/chart";
-import { data } from "@/app/data/dummy-5days";
+import { WeatherData } from "@/app/data/dummy-5days";
 
-function HumidityBarChart() {
-	const chartData = data.listX.slice(0, 13).map((item) => {
+function HumidityBarChart({ data }: { data: WeatherData["list"] }) {
+	const chartData = data.map((item) => {
 		return {
 			hr: new Date(item.dt * 1000).toLocaleTimeString("en-AU", {
 				hour: "2-digit",
