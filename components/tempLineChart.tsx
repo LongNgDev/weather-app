@@ -36,7 +36,7 @@ function TempLineChart({ data }: { data: WeatherData["list"] }) {
 	});
 
 	return (
-		<Card className="">
+		<Card className="bg-background">
 			<CardHeader>
 				<CardTitle>Temperature Chart</CardTitle>
 				<CardDescription>30 December 2025</CardDescription>

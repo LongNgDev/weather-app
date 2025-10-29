@@ -14,7 +14,8 @@ export default function Home() {
 	const [currentWeather, setCurWeather] = useState<CurrentWeatherData>();
 	const [loading, setLoading] = useState(false);
 
-	const [forecast, setForecast] = useState();
+	const [forecast, setForecast] =
+		useState<Record<string, { date: string; max: number; min: number }>>();
 
 	const [time, setTime] = useState("");
 	const [date, setDate] = useState("");
@@ -28,34 +29,50 @@ export default function Home() {
 		let cur_date = "0";
 		const addForecast = () => {
 			const DATA_LIST = weather?.list;
+			let h_temp = -999;
+			let l_temp = 999;
 
-			const res: Record<string, typeof DATA_LIST> = {};
-			let temp: typeof DATA_LIST = [];
+			const res: Record<string, { date: string; max: number; min: number }> =
+				{};
 
 			DATA_LIST?.forEach((item) => {
 				const item_date = new Date(item.dt * 1000).toLocaleDateString("en-AU", {
-					day: "numeric",
+					day: "2-digit",
+					month: "2-digit",
 				});
+
+				if (
+					item_date ==
+					new Date().toLocaleDateString("en-AU", {
+						day: "2-digit",
+						month: "2-digit",
+					})
+				)
+					return;
 
 				if (cur_date !== item_date) {
 					if (cur_date !== "0") {
-						res[item.dt] = temp;
-						temp = [];
+						res[item.dt] = {
+							date: new Date(item.dt * 1000).toLocaleDateString("en-AU", {
+								weekday: "long",
+							}),
+							max: h_temp,
+							min: l_temp,
+						};
+						h_temp = -999;
+						l_temp = 999;
 					}
 					cur_date = item_date;
-					temp?.push(item);
-				} else {
-					temp?.push(item);
 				}
-			});
 
+				h_temp = Math.max(h_temp, item.main.temp_max);
+				l_temp = Math.min(l_temp, item.main.temp_min);
+			});
 			console.log(res);
+			setForecast(res);
 		};
 
 		addForecast();
-
-		// const forecastInterval = setInterval(addForecast, 19000);
-		// return clearInterval(forecastInterval);
 	}, [weather]);
 
 	useEffect(() => {
@@ -181,23 +198,32 @@ export default function Home() {
 
 					{/* Second Section container */}
 					<div className="flex w-full gap-6">
-						<div className="flex flex-col justify-start border-2 rounded-xl gap-4 items-center p-4 h-fit">
-							<h3 className="font-semibold">5 Days Forecast</h3>
-							<div className="grid grid-cols-3 auto-rows-auto w-full text-center gap-y-2">
-								<span className="not-last:border-r border-accent-foreground/70 px-4 ">
-									30/1
-								</span>
-								<span className="not-last:border-r border-accent-foreground/70 px-4">
-									30
-								</span>
-								<span className="px-4">18</span>
-								<span className="not-last:border-r border-accent-foreground/70 px-4">
-									30/1
-								</span>
-								<span className="not-last:border-r border-accent-foreground/70 px-4">
-									30
-								</span>
-								<span className="px-4">18</span>
+						<div className="flex flex-col justify-start border-2 rounded-xl gap-6 items-center p-4 h-fit">
+							<h3 className="font-semibold">3 Days Forecast</h3>
+
+							<div className="grid auto-rows-auto w-full text-center gap-y-2">
+								{forecast ? (
+									Object.values(forecast)
+										.slice(0, 3)
+										.map((item) => {
+											return (
+												<div
+													key={item.date}
+													className="grid grid-cols-3 w-full text-center gap-y-2"
+												>
+													<span className=" px-4 text-start">{item.date}</span>
+													<span className="px-4 text-muted-foreground">
+														{Math.floor(item?.min)}&deg;C
+													</span>
+													<span className=" px-4">
+														{Math.round(item?.max)}&deg;C
+													</span>
+												</div>
+											);
+										})
+								) : (
+									<></>
+								)}
 							</div>
 						</div>
 						<div className="grow flex flex-col justify-center items-center gap-6">
