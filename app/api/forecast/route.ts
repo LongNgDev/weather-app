@@ -13,7 +13,7 @@ export async function GET(req: Request) {
 
 	const lat = searchParams.get("lat");
 	const lon = searchParams.get("lon");
-	const key = `${lat}:${lon}:current`;
+	const key = `${lat}:${lon}`;
 	const appid = process.env.WEATHER_KEY;
 
 	if (!lat || !lon)
@@ -24,7 +24,7 @@ export async function GET(req: Request) {
 	if (cached) return NextResponse.json(cached);
 
 	const res = await fetch(
-		`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appid}&units=metric`
+		`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${appid}&units=metric`
 	);
 
 	if (!res.ok)

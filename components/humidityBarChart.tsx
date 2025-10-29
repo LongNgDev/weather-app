@@ -15,7 +15,6 @@ function HumidityBarChart({ data }: { data: WeatherData["list"] }) {
 		return {
 			hr: new Date(item.dt * 1000).toLocaleTimeString("en-AU", {
 				hour: "2-digit",
-				timeZone: "UTC",
 				hour12: false,
 			}),
 			humidity: item.main.humidity,

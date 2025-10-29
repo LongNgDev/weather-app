@@ -2,14 +2,7 @@
 
 import { WeatherData } from "../app/data/dummy-5days";
 
-import {
-	CartesianGrid,
-	LabelList,
-	Line,
-	LineChart,
-	XAxis,
-	YAxis,
-} from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 import {
 	Card,
@@ -36,7 +29,6 @@ function TempLineChart({ data }: { data: WeatherData["list"] }) {
 		return {
 			hr: new Date(item.dt * 1000).toLocaleTimeString("en-AU", {
 				hour: "2-digit",
-				timeZone: "UTC",
 				hour12: false,
 			}),
 			temp: Math.round(item.main.temp),
@@ -73,6 +65,7 @@ function TempLineChart({ data }: { data: WeatherData["list"] }) {
 						<ChartTooltip
 							cursor={false}
 							content={<ChartTooltipContent hideLabel />}
+							label={"temp"}
 						/>
 						<YAxis dataKey={"temp"} tickLine={false} tickMargin={8} />
 						<Line
