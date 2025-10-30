@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🌦️ Weather Forecast App
 
-First, run the development server:
+A modern and responsive weather app that displays real-time weather data using the **OpenWeather API**.  
+Built with **Next.js**, **Tailwind CSS**, and **Recharts**, it visualises temperature, humidity, and wind trends in a clean dark interface.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🌡️ Real-time temperature, humidity, and wind data  
+- 📈 Interactive charts with Recharts  
+- 🌙 Dark and responsive design  
+- ⚡ Fast and server-rendered with Next.js  
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## 🧰 Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js](https://nextjs.org/)  
+- [Tailwind CSS](https://tailwindcss.com/)  
+- [Recharts](https://recharts.org/)  
+- [OpenWeather API](https://openweathermap.org/api)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## 🚀 Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is deployed on **Vercel** for fast global delivery and automatic CI/CD. Visit the website at **[Weather App](https://weather-app-flame-two-18.vercel.app/)** 🌤️
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧠 Lessons Learned
+
+Building this weather app taught me how to integrate third-party APIs efficiently and handle dynamic data rendering in real time.  
+I learned how to:
+- Use **OpenWeather API** to fetch and structure live weather data 🌦️  
+- Visualise data using **Recharts** with custom domains and smooth transitions 📊  
+- Manage environment variables safely with **Vercel** deployments 🔐  
+- Optimise UI responsiveness and state management in **Next.js** ⚡  
+
+### 💪 Challenges
+- **API response timing:** Solved by adding loading states and async error handling.  
+- **Chart scaling issues:** Adjusted Y-axis domains for better data visibility.  
+- **Environment setup on Vercel:** Fixed by prefixing public variables with `NEXT_PUBLIC_`.  
+
+Each fix helped me understand the balance between clean design and reliable backend integration 💫
+## 👩‍💻 Author
+**Long Nguyen**  
+A passionate software engineer who loves coding, coffee, and creating cozy web experiences ☕💻   
+- 🌐 [Linkedin](https://www.linkedin.com/in/longngdev/)
+- 💌 [Email](mailto:longng.dev@gmail.com)
