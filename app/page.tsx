@@ -69,7 +69,6 @@ export default function Home() {
 				h_temp = Math.max(h_temp, item.main.temp_max);
 				l_temp = Math.min(l_temp, item.main.temp_min);
 			});
-			console.log(res);
 			setForecast(res);
 		};
 
