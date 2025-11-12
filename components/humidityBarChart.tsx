@@ -66,7 +66,7 @@ function HumidityBarChart({ data }: { data: WeatherData["list"] }) {
 								position={"top"}
 								offset={8}
 								fontSize={12}
-								className="fill-foreground"
+								className="fill-foreground hidden sm:inline sm:text-sm"
 							/>
 						</Bar>
 						{/* <ChartTooltip

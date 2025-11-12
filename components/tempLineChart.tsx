@@ -70,7 +70,7 @@ function TempLineChart({ data }: { data: WeatherData["list"] }) {
 				<CardTitle>Temperature Chart</CardTitle>
 				<CardDescription>30 December 2025</CardDescription>
 			</CardHeader>
-			<CardContent>
+			<CardContent className="px-0 sm:px-4 lg:px-6">
 				<ChartContainer config={chartConfig} className=" h-[250px] w-full">
 					<ComposedChart
 						accessibilityLayer
@@ -81,6 +81,7 @@ function TempLineChart({ data }: { data: WeatherData["list"] }) {
 							// top: 12,
 							// bottom: 12,
 						}}
+						className=""
 					>
 						<CartesianGrid vertical={false} />
 						<XAxis

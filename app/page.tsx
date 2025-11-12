@@ -153,28 +153,32 @@ export default function Home() {
 				// {true ? (
 				<Loading />
 			) : (
-				<main className="flex flex-col gap-2 p-4 h-dvh item ">
+				<main className="flex flex-col gap-2 p-4 h-dvh item w-full">
 					{/* Current Weather */}
-					<section className="flex flex-col items-center justify-center w-full gap-4 p-6 border-2 border-accent-foreground/60 rounded-2xl">
+					<section className="flex flex-col items-center justify-center w-full gap-4 p-6 border-2 border-accent-foreground/60 rounded-2xl ">
 						<div className="flex flex-col w-full gap-4 ">
-							<div className="flex items-center justify-between">
-								<div className="flex items-center justify-start gap-8 p-4">
+							<div className="flex md:flex-row flex-col justify-between items-center">
+								<div className="flex md:flex-row flex-col items-center justify-start md:gap-8 gap-4 p-2">
 									<div className="flex items-start px-4">
-										<h2 className="font-semibold text-8xl">
+										<h2 className="font-semibold sm:text-8xl text-6xl">
 											{Math.round(currentWeather?.main.temp || 0)}
 										</h2>
-										<span className="text-4xl ">&deg;C</span>
+										<span className="lg:text-4xl text-2xl ">&deg;C</span>
 									</div>
-									<div className="flex flex-col justify-center h-full gap-2">
-										<span className="text-3xl ">{date}</span>
-										<span className="text-2xl">{time}</span>
+									<div className="flex md:flex-col justify-center italic h-full md:gap-2 gap-6 lg:text-3xl sm:text-2xl text-xl">
+										<span>{date}</span>
+										<span>{time}</span>
 									</div>
 								</div>
 
-								<div className="flex items-center gap-6 p-4 text-5xl font-semibold tracking-wide ">
-									<div className="flex items-center gap-2 p-4">
+								<div className="flex items-center gap-4 p-4 lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-semibold tracking-wide ">
+									<div className="flex items-center gap-2 ">
 										<div className="relative">
-											<MapPin size={38} color="orange" className="" />
+											<MapPin
+												size={20}
+												color="orange"
+												className="lg:size-[38] md:size-[25]"
+											/>
 										</div>
 										<h2>Melbourne</h2>
 									</div>
@@ -184,14 +188,17 @@ export default function Home() {
 											src={`https://openweathermap.org/img/wn/${currentWeather?.weather[0].icon}@2x.png`}
 											width={100}
 											height={100}
+											// fill
+											style={{ objectFit: "contain" }}
 											alt="icon"
+											className="size-[60] md:size-[80] lg:size-[100]"
 										/>
 									</div>
 								</div>
 							</div>
 
 							{/* Temperature Section */}
-							<div className="flex justify-start w-full p-4 overflow-hidden border-2 rounded-xl">
+							<div className="flex justify-start w-full p-4 overflow-auto border-2 rounded-xl">
 								{DATA.map((data) => {
 									return (
 										<div
@@ -228,11 +235,11 @@ export default function Home() {
 						</div>
 
 						{/* Second Section container */}
-						<div className="flex w-full gap-6">
+						<div className="flex w-full gap-6 lg:flex-row flex-col">
 							<div className="flex flex-col items-center justify-start gap-6 p-4 border-2 rounded-xl h-fit">
 								<h3 className="font-semibold">3 Days Forecast</h3>
 
-								<div className="grid w-full text-center auto-rows-auto gap-y-2">
+								<div className="grid  text-center auto-rows-auto gap-y-2 w-fit">
 									{forecast ? (
 										Object.values(forecast)
 											.slice(0, 3)
@@ -259,26 +266,28 @@ export default function Home() {
 							</div>
 							<div className="flex flex-col items-center justify-center gap-6 grow">
 								<HumidityBarChart data={DATA} />
-								<div className="grid w-full grid-cols-3 text-center gap-x-4">
-									<div className="flex flex-col border-2 rounded-xl">
-										<h3 className="p-4 font-semibold border-b">Humidity (%)</h3>
-										<div className="p-4 text-4xl tracking-wide">
+								<div className="grid w-full sm:grid-cols-3 sm:grid-rows-none gap-4 grid-rows-3 text-center gap-x-4">
+									<div className="flex flex-col border-2 rounded-xl sm:text-xl">
+										<h3 className="p-4 sm:font-semibold border-b grow-2">
+											Humidity (%)
+										</h3>
+										<div className="p-4 sm:text-4xl text-3xl tracking-wide ">
 											{currentWeather?.main.humidity}
 										</div>
 									</div>
-									<div className="flex flex-col border-2 rounded-xl">
-										<h3 className="p-4 font-semibold border-b">
+									<div className="flex flex-col border-2 rounded-xl sm:text-xl">
+										<h3 className="p-4 sm:font-semibold border-b grow-2">
 											Wind Speed (km/h)
 										</h3>
-										<div className="p-4 text-4xl tracking-wide">
+										<div className="p-4 sm:text-4xl text-3xl tracking-wide ">
 											{Math.floor((currentWeather?.wind.speed as number) * 3.6)}
 										</div>
 									</div>
-									<div className="flex flex-col border-2 rounded-xl">
-										<h3 className="p-4 font-semibold border-b">
+									<div className="flex flex-col border-2 rounded-xl sm:text-xl">
+										<h3 className="p-4 sm:font-semibold border-b grow-2">
 											Wind Direction
 										</h3>
-										<div className="p-4 text-4xl tracking-wide">
+										<div className="p-4 sm:text-4xl text-3xl tracking-wide ">
 											{currentWeather?.wind.deg}&deg;
 										</div>
 									</div>
