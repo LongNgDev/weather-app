@@ -155,7 +155,7 @@ export default function Home() {
 			) : (
 				<main className="flex flex-col gap-2 p-4 h-dvh item w-full">
 					{/* Current Weather */}
-					<section className="flex flex-col items-center justify-center w-full gap-4 p-6 border-2 border-accent-foreground/60 rounded-2xl ">
+					<section className="flex flex-col items-center justify-center w-full gap-4 lg:p-6 lg:border-2 border-accent-foreground/60 rounded-2xl ">
 						<div className="flex flex-col w-full gap-4 ">
 							<div className="flex md:flex-row flex-col justify-between items-center">
 								<div className="flex md:flex-row flex-col items-center justify-start md:gap-8 gap-4 p-2">
